@@ -81,11 +81,13 @@ button { font: inherit; color: inherit; }
 .signature-rings i:nth-child(2) { inset: 26%; }
 .signature-rings i:nth-child(3) { inset: 40%; border-color: var(--acid); }
 @keyframes slowSpin { to { transform: rotate(360deg); } }
-.signature-core { position: relative; z-index: 2; width: 48%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--paper); color: var(--ink); box-shadow: 0 30px 80px rgba(0,0,0,.25); }
-.signature-core > strong { font-family: "Manrope"; font-size: clamp(4rem, 9vw, 7rem); line-height: 1; font-weight: 500; letter-spacing: -.08em; }
+.signature-core { position: relative; z-index: 2; width: 56%; aspect-ratio: 1; border: 5px solid var(--paper); border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: var(--deep-2); color: var(--paper); box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+.signature-core img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 23%; transform: scale(1.03); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .8s; }
+.hero-signature:hover .signature-core img { transform: scale(1.09); filter: saturate(1.06); }
+.portrait-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,29,26,.25) 0%, transparent 40%, rgba(7,29,26,.72) 100%); }
 .signature-kicker, .signature-name { position: absolute; font-size: .53rem; line-height: 1.25; text-transform: uppercase; letter-spacing: .11em; font-weight: 600; }
-.signature-kicker { top: 17%; left: 18%; }
-.signature-name { bottom: 17%; right: 14%; text-align: right; }
+.signature-kicker { z-index: 2; top: 12%; left: 14%; color: var(--acid); text-shadow: 0 1px 12px rgba(0,0,0,.6); }
+.signature-name { z-index: 2; bottom: 12%; right: 12%; text-align: right; text-shadow: 0 1px 12px rgba(0,0,0,.7); }
 .orbit-label { position: absolute; padding: .35rem .5rem; background: var(--acid); color: var(--ink); font-size: .54rem; font-weight: 700; letter-spacing: .1em; }
 .label-one { top: 2%; left: 31%; }.label-two { right: -3%; top: 34%; }.label-three { bottom: 3%; right: 22%; }.label-four { left: -3%; bottom: 29%; }
 .hero-bottom { position: relative; z-index: 2; max-width: var(--max); height: 70px; margin: auto; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(243,240,232,.16); color: rgba(243,240,232,.55); font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; }
