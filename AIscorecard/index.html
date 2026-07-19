@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wizard para priorizar procesos empresariales donde aplicar IA y construir su AI Scorecard.">
+  <title>AI Opportunity Scorecard</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b6b50'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='24' font-weight='700' fill='white'%3EAI%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">AI</span>
+      <div>
+        <p class="eyebrow">AI Opportunity Scorecard</p>
+        <h1>Encuentra dónde la IA puede mejorar realmente el resultado</h1>
+      </div>
+    </div>
+    <p class="header-copy">Compara procesos antes de invertir. El resultado combina beneficio, viabilidad y control del riesgo.</p>
+  </header>
+
+  <main class="app-shell">
+    <nav class="stepper" aria-label="Progreso del diagnóstico">
+      <ol>
+        <li class="is-active" data-step-indicator="1"><span>1</span><strong>Objetivo</strong></li>
+        <li data-step-indicator="2"><span>2</span><strong>Oportunidades</strong></li>
+        <li data-step-indicator="3"><span>3</span><strong>Evaluación</strong></li>
+        <li data-step-indicator="4"><span>4</span><strong>Recomendación</strong></li>
+      </ol>
+    </nav>
+
+    <form id="diagnosticForm" novalidate>
+      <section class="wizard-step is-active" data-step="1" aria-labelledby="step1Title">
+        <div class="section-heading">
+          <p class="step-kicker">Paso 1 de 4</p>
+          <h2 id="step1Title">Sitúa la decisión en la cuenta de resultados</h2>
+          <p>No empezamos por una herramienta ni por el proceso que ya usa IA. Empezamos por la prioridad empresarial.</p>
+        </div>
+
+        <div class="form-grid two-columns">
+          <label class="field">
+            <span>Nombre de la empresa <small>(opcional)</small></span>
+            <input id="companyName" name="companyName" type="text" placeholder="Empresa piloto">
+          </label>
+          <label class="field">
+            <span>Sector</span>
+            <select id="sector" name="sector" required>
+              <option value="">Selecciona un sector</option>
+              <option value="professional">Servicios profesionales / consultoría</option>
+              <option value="industrial">Industria / fabricación</option>
+              <option value="retail">Comercio / distribución</option>
+              <option value="technology">Tecnología / software</option>
+              <option value="construction">Construcción / ingeniería</option>
+              <option value="financial">Servicios financieros / seguros</option>
+              <option value="health">Salud</option>
+              <option value="public">Administración / sector público</option>
+              <option value="other">Otro</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Tamaño</span>
+            <select id="companySize" name="companySize" required>
+              <option value="">Selecciona un tamaño</option>
+              <option value="micro">1–10 personas</option>
+              <option value="small">11–50 personas</option>
+              <option value="medium">51–250 personas</option>
+              <option value="large">Más de 250 personas</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Horizonte para demostrar impacto</span>
+            <select id="horizon" name="horizon" required>
+              <option value="">Selecciona un horizonte</option>
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+              <option value="18">Más de 12 meses</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="choice-group">
+          <legend>¿Qué mejora debe liderar la decisión?</legend>
+          <p class="field-help">El resto puede mejorar también, pero necesitamos una prioridad para ordenar las oportunidades.</p>
+          <div class="choice-grid">
+            <label class="choice-card"><input type="radio" name="priority" value="cost" required><span><strong>Reducir costes</strong><small>Menos horas, retrabajo o gasto externo.</small></span></label>
+            <label class="choice-card"><input type="radio" name="priority" value="revenue"><span><strong>Aumentar ingresos</strong><small>Más oportunidades, conversión o valor por cliente.</small></span></label>
+            <label class="choice-card"><input type="radio" name="priority" value="capacity"><span><strong>Ganar capacidad</strong><small>Hacer más trabajo sin crecer al mismo ritmo.</small></span></label>
+            <label class="choice-card"><input type="radio" name="priority" value="margin"><span><strong>Mejorar margen y calidad</strong><small>Entregar mejor, antes y con menos defectos.</small></span></label>
+            <label class="choice-card"><input type="radio" name="priority" value="risk"><span><strong>Reducir riesgo</strong><small>Evitar errores, pérdidas, incumplimientos o fraude.</small></span></label>
+          </div>
+        </fieldset>
+
+        <div class="form-grid two-columns compact-top">
+          <label class="field">
+            <span>Madurez actual con IA</span>
+            <select id="maturity" name="maturity" required>
+              <option value="">Selecciona una situación</option>
+              <option value="1">Exploración: usos individuales y pruebas</option>
+              <option value="2">Inicial: uno o dos casos de uso</option>
+              <option value="3">Operativa: varios procesos medidos</option>
+              <option value="4">Avanzada: IA integrada y gobernada</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Tolerancia al riesgo del primer piloto</span>
+            <select id="riskTolerance" name="riskTolerance" required>
+              <option value="">Selecciona una opción</option>
+              <option value="cautious">Cauta: bajo impacto y aprobación humana</option>
+              <option value="balanced">Equilibrada: riesgo controlable</option>
+              <option value="bold">Ambiciosa: aceptamos mayor complejidad</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="check-line">
+          <input id="regulated" name="regulated" type="checkbox">
+          <span>La empresa maneja datos especialmente sensibles o está fuertemente regulada.</span>
+        </label>
+      </section>
+
+      <section class="wizard-step" data-step="2" aria-labelledby="step2Title" hidden>
+        <div class="section-heading">
+          <p class="step-kicker">Paso 2 de 4</p>
+          <h2 id="step2Title">Abre el mapa de oportunidades</h2>
+          <p>Selecciona las áreas relevantes y después entre 3 y 6 procesos candidatos. Incluir alternativas evita confirmar el uso actual por inercia.</p>
+        </div>
+
+        <fieldset class="choice-group">
+          <legend>¿Qué áreas pueden participar en el diagnóstico?</legend>
+          <div id="areaChoices" class="area-grid"></div>
+          <p id="areaError" class="validation-message" role="alert"></p>
+        </fieldset>
+
+        <div class="candidate-header">
+          <div>
+            <h3>Procesos sugeridos</h3>
+            <p>Marca procesos con volumen, coste, demoras, errores o impacto comercial apreciable.</p>
+          </div>
+          <span id="candidateCounter" class="counter">0 de 3 mínimo</span>
+        </div>
+        <div id="candidateChoices" class="candidate-grid" aria-live="polite"></div>
+        <p id="candidateError" class="validation-message" role="alert"></p>
+
+        <div class="custom-process">
+          <h3>Añadir otro proceso</h3>
+          <div class="inline-fields">
+            <label class="field"><span>Nombre</span><input id="customProcessName" type="text" placeholder="Ej.: Preparación de expedientes"></label>
+            <label class="field"><span>Área</span><select id="customProcessArea"><option value="documentation">Documentación y conocimiento</option></select></label>
+            <button id="addCustomProcess" class="button secondary" type="button">Añadir candidato</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="wizard-step" data-step="3" aria-labelledby="step3Title" hidden>
+        <div class="section-heading">
+          <p class="step-kicker">Paso 3 de 4</p>
+          <h2 id="step3Title">Compara beneficio, viabilidad y riesgo</h2>
+          <p>Valora cada factor de 1 (muy bajo) a 5 (muy alto). Usa la misma exigencia para todos los procesos.</p>
+        </div>
+
+        <div class="metric-legend" aria-label="Significado de los criterios">
+          <span><strong>Eficiencia:</strong> volumen, esfuerzo y problemas actuales</span>
+          <span><strong>Eficacia:</strong> impacto en la prioridad económica</span>
+          <span><strong>Viabilidad:</strong> estandarización y datos disponibles</span>
+          <span><strong>Riesgo:</strong> consecuencias del error y juicio humano</span>
+        </div>
+        <div id="assessmentList" class="assessment-list"></div>
+        <p id="assessmentError" class="validation-message" role="alert"></p>
+      </section>
+
+      <section class="wizard-step" data-step="4" aria-labelledby="step4Title" hidden>
+        <div class="section-heading results-heading">
+          <p class="step-kicker">Paso 4 de 4</p>
+          <h2 id="step4Title">Recomendación de proceso</h2>
+          <p>La puntuación prioriza el valor empresarial, sin ocultar la viabilidad ni el riesgo.</p>
+        </div>
+
+        <div id="topRecommendation" class="recommendation"></div>
+
+        <section class="results-section" aria-labelledby="rankingTitle">
+          <div class="results-section-heading">
+            <h3 id="rankingTitle">Ranking comparativo</h3>
+            <span class="method-note">0–100 · priorización relativa</span>
+          </div>
+          <div id="rankingList" class="ranking-list"></div>
+        </section>
+
+        <section class="results-section" aria-labelledby="scorecardTitle">
+          <div class="results-section-heading">
+            <div>
+              <h3 id="scorecardTitle">AI Scorecard propuesto para el piloto</h3>
+              <p id="scorecardProcessName"></p>
+            </div>
+          </div>
+          <div id="scorecardMetrics" class="scorecard-grid"></div>
+        </section>
+
+        <aside class="decision-note">
+          <strong>Antes de aprobar la inversión</strong>
+          <p>Valida durante 2–4 semanas el volumen real, el coste completo, la calidad de partida y el valor económico por tarea. El ranking decide dónde investigar primero; la línea base decide si conviene invertir.</p>
+        </aside>
+
+        <div class="result-actions">
+          <a class="button primary" href="scorecard.html">Configurar AI Scorecard</a>
+          <button id="exportReport" class="button secondary" type="button">Descargar diagnóstico</button>
+          <button id="printReport" class="button secondary" type="button">Imprimir / guardar PDF</button>
+          <button id="restartWizard" class="button ghost" type="button">Empezar de nuevo</button>
+        </div>
+      </section>
+
+      <div class="wizard-actions" id="wizardActions">
+        <button id="previousStep" class="button ghost" type="button" hidden>Anterior</button>
+        <div class="action-spacer"></div>
+        <button id="nextStep" class="button primary" type="button">Continuar</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>Los datos permanecen en este navegador. La herramienta no envía información a servicios externos.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
