@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configurador operativo de AI Scorecard para medir trabajo útil, coste, fiabilidad, valor y control.">
+  <title>Configurar AI Scorecard</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b6b50'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='24' font-weight='700' fill='white'%3EAI%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="scorecard.css?v=2">
+</head>
+<body>
+  <header class="app-header scorecard-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">AI</span>
+      <div>
+        <p class="eyebrow">AI Scorecard operativo</p>
+        <h1>Convierte la oportunidad en resultados medibles</h1>
+      </div>
+    </div>
+    <a class="button ghost back-link" href="index.html">← Volver al diagnóstico</a>
+  </header>
+
+  <main class="app-shell scorecard-shell">
+    <section id="analysisLoader" class="analysis-loader" aria-labelledby="loaderTitle">
+      <div>
+        <p class="step-kicker">Punto de partida</p>
+        <h2 id="loaderTitle">Carga el diagnóstico de oportunidades</h2>
+        <p>Importa el JSON descargado al terminar el primer wizard. Los datos se procesan solo en este navegador.</p>
+      </div>
+      <label class="button primary file-button">
+        Importar análisis JSON
+        <input id="analysisFile" type="file" accept="application/json,.json">
+      </label>
+      <p id="importError" class="validation-message" role="alert"></p>
+    </section>
+
+    <div id="scorecardApp" hidden>
+      <section class="analysis-context" aria-label="Contexto del piloto">
+        <div>
+          <p class="context-label">Empresa</p>
+          <strong id="contextCompany">—</strong>
+        </div>
+        <div class="context-main">
+          <p class="context-label">Proceso recomendado</p>
+          <strong id="contextProcess">—</strong>
+        </div>
+        <div>
+          <p class="context-label">Objetivo</p>
+          <strong id="contextPriority">—</strong>
+        </div>
+        <div>
+          <p class="context-label">Riesgo</p>
+          <strong id="contextRisk">—</strong>
+        </div>
+        <label class="import-replace">
+          Cambiar análisis
+          <input id="replaceAnalysisFile" type="file" accept="application/json,.json">
+        </label>
+        <button id="resetScorecardDraft" class="context-action" type="button">Borrar borrador</button>
+      </section>
+
+      <nav class="stepper scorecard-stepper" aria-label="Progreso de configuración">
+        <ol>
+          <li class="is-active" data-builder-indicator="1"><span>1</span><strong>Definición</strong></li>
+          <li data-builder-indicator="2"><span>2</span><strong>Línea base</strong></li>
+          <li data-builder-indicator="3"><span>3</span><strong>Medición</strong></li>
+        </ol>
+      </nav>
+
+      <form id="scorecardForm" novalidate>
+        <section class="builder-step" data-builder-step="1" aria-labelledby="definitionTitle">
+          <div class="section-heading">
+            <p class="step-kicker">Definición del piloto</p>
+            <h2 id="definitionTitle">Acordar qué significa que el trabajo está bien hecho</h2>
+            <p>La unidad de medida debe ser un resultado verificable en el CRM, no una conversación con la IA.</p>
+          </div>
+
+          <div class="form-grid two-columns">
+            <label class="field">
+              <span>Unidad de trabajo</span>
+              <input id="taskUnit" name="taskUnit" type="text" required>
+              <small>Se contará una vez por cada resultado terminado.</small>
+            </label>
+            <label class="field">
+              <span>Responsable del indicador</span>
+              <input id="metricOwner" name="metricOwner" type="text" placeholder="Ej.: Responsable comercial" required>
+            </label>
+          </div>
+
+          <label class="field full-field">
+            <span>Definición de tarea exitosa</span>
+            <textarea id="successDefinition" name="successDefinition" rows="4" required></textarea>
+            <small>Debe poder decidirse de forma consistente si cada caso cumple o no el estándar.</small>
+          </label>
+
+          <div class="form-grid two-columns compact-top">
+            <label class="field">
+              <span>Modo de operación inicial</span>
+              <select id="operatingMode" name="operatingMode" required>
+                <option value="assist">Asistir: prepara información, decide una persona</option>
+                <option value="recommend">Recomendar: prioriza, una persona aprueba</option>
+                <option value="autonomous">Autónomo: ejecuta cambios sin aprobación</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Diseño de comparación</span>
+              <select id="comparisonDesign" name="comparisonDesign" required>
+                <option value="matched">Cohorte comparable con y sin IA</option>
+                <option value="randomized">Asignación aleatoria A/B</option>
+                <option value="before-after">Antes y después con ajuste estacional</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Cadencia del scorecard</span>
+              <select id="cadence" name="cadence" required>
+                <option value="weekly">Semanal durante el piloto</option>
+                <option value="monthly">Mensual</option>
+                <option value="quarterly">Trimestral</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Duración prevista</span>
+              <div class="input-unit"><input id="pilotMonths" name="pilotMonths" type="number" min="1" max="24" required><span>meses</span></div>
+            </label>
+          </div>
+
+          <aside id="riskGuardrail" class="guardrail-note"></aside>
+        </section>
+
+        <section class="builder-step" data-builder-step="2" aria-labelledby="baselineTitle" hidden>
+          <div class="section-heading">
+            <p class="step-kicker">Economía del caso de uso</p>
+            <h2 id="baselineTitle">Fijar línea base, coste completo y objetivos</h2>
+            <p>Introduce datos mensuales representativos. No hace falta que sean perfectos: sí deben tener fuente y responsable.</p>
+          </div>
+
+          <section class="input-section" aria-labelledby="funnelTitle">
+            <div class="input-section-heading">
+              <h3 id="funnelTitle">Embudo comercial actual</h3>
+              <p>Fuente recomendada: CRM y contabilidad.</p>
+            </div>
+            <div class="form-grid three-columns">
+              <label class="field"><span>Oportunidades elegibles / mes</span><input id="baselineEligible" type="number" min="1" step="1" required></label>
+              <label class="field"><span>Cualificadas y aceptadas / mes</span><input id="baselineAccepted" type="number" min="0" step="1" required></label>
+              <label class="field"><span>Conversión cualificada → ganada</span><div class="input-unit"><input id="baselineWinRate" type="number" min="0" max="100" step="0.1" required><span>%</span></div></label>
+              <label class="field"><span>Valor medio por venta</span><div class="input-unit"><input id="averageDeal" type="number" min="0" step="100" required><span>€</span></div></label>
+              <label class="field"><span>Margen bruto medio</span><div class="input-unit"><input id="grossMargin" type="number" min="0" max="100" step="0.1" required><span>%</span></div></label>
+              <label class="field"><span>Minutos actuales por oportunidad</span><div class="input-unit"><input id="baselineMinutes" type="number" min="0" step="1" required><span>min</span></div></label>
+              <label class="field"><span>Coste laboral completo</span><div class="input-unit"><input id="laborCost" type="number" min="0" step="1" required><span>€/h</span></div></label>
+            </div>
+          </section>
+
+          <section class="input-section" aria-labelledby="targetTitle">
+            <div class="input-section-heading">
+              <h3 id="targetTitle">Objetivo del piloto con IA</h3>
+              <p>Los objetivos de fiabilidad deben sumar 100%.</p>
+            </div>
+            <div class="form-grid three-columns">
+              <label class="field"><span>Aceptadas por ventas / mes</span><input id="targetAccepted" type="number" min="0" step="1" required></label>
+              <label class="field"><span>Mejora de conversión</span><div class="input-unit"><input id="targetWinLift" type="number" min="0" max="100" step="0.1" required><span>p.p.</span></div></label>
+              <label class="field"><span>Listo para usar</span><div class="input-unit"><input id="targetReady" type="number" min="0" max="100" step="1" value="60" required><span>%</span></div></label>
+              <label class="field"><span>Necesita corrección</span><div class="input-unit"><input id="targetCorrection" type="number" min="0" max="100" step="1" value="30" required><span>%</span></div></label>
+              <label class="field"><span>Necesita escalado</span><div class="input-unit"><input id="targetEscalation" type="number" min="0" max="100" step="1" value="10" required><span>%</span></div></label>
+              <label class="field"><span>Revisión humana por oportunidad</span><div class="input-unit"><input id="reviewMinutes" type="number" min="0" step="1" required><span>min</span></div></label>
+              <label class="field"><span>Coste fijo de IA / mes</span><div class="input-unit"><input id="fixedAiCost" type="number" min="0" step="1" required><span>€</span></div></label>
+              <label class="field"><span>Coste variable por oportunidad</span><div class="input-unit"><input id="variableAiCost" type="number" min="0" step="0.01" required><span>€</span></div></label>
+            </div>
+          </section>
+
+          <p id="baselineError" class="validation-message" role="alert"></p>
+          <div id="businessCasePreview" class="business-case-preview" aria-live="polite"></div>
+        </section>
+
+        <section class="builder-step" data-builder-step="3" aria-labelledby="measurementTitle" hidden>
+          <div class="section-heading">
+            <p class="step-kicker">Periodo observado</p>
+            <h2 id="measurementTitle">Registrar los resultados reales del piloto</h2>
+            <p>Usa una cohorte cerrada: las categorías de fiabilidad deben sumar las oportunidades evaluadas.</p>
+          </div>
+
+          <div class="form-grid three-columns">
+            <label class="field"><span>Periodo</span><input id="measurementPeriod" type="month" required></label>
+            <label class="field"><span>Oportunidades evaluadas</span><input id="actualEvaluated" type="number" min="1" step="1" required></label>
+            <label class="field"><span>Priorizaciones aceptadas por ventas</span><input id="actualAccepted" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Listo para usar</span><input id="actualReady" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Necesita corrección</span><input id="actualCorrection" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Necesita escalado</span><input id="actualEscalation" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Oportunidades maduras de la cohorte</span><input id="actualMatured" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Ventas ganadas de la cohorte</span><input id="actualWon" type="number" min="0" step="1" required></label>
+            <label class="field"><span>Oportunidades maduras del control</span><input id="controlMatured" type="number" min="0" step="1"></label>
+            <label class="field"><span>Ventas ganadas del control</span><input id="controlWon" type="number" min="0" step="1"></label>
+            <label class="field"><span>Coste real de IA y herramientas</span><div class="input-unit"><input id="actualAiCost" type="number" min="0" step="0.01" required><span>€</span></div></label>
+            <label class="field"><span>Horas reales de revisión humana</span><div class="input-unit"><input id="actualReviewHours" type="number" min="0" step="0.1" required><span>h</span></div></label>
+            <label class="field"><span>Otros costes del periodo</span><div class="input-unit"><input id="actualOtherCost" type="number" min="0" step="0.01" value="0" required><span>€</span></div></label>
+            <label class="field"><span>Incidentes de seguridad o privacidad</span><input id="actualIncidents" type="number" min="0" step="1" value="0" required></label>
+            <label class="field"><span>Oportunidades de alto valor mal descartadas</span><input id="actualFalseNegatives" type="number" min="0" step="1" value="0" required></label>
+          </div>
+
+          <p id="measurementError" class="validation-message" role="alert"></p>
+          <button id="calculateScorecard" class="button primary calculate-button" type="button">Calcular AI Scorecard</button>
+
+          <section id="scorecardDashboard" class="operational-dashboard" aria-labelledby="dashboardTitle" hidden>
+            <div class="dashboard-heading">
+              <div><p class="step-kicker">Resultado observado</p><h3 id="dashboardTitle">AI Scorecard del piloto</h3></div>
+              <span id="dashboardPeriod" class="counter"></span>
+            </div>
+            <div id="northStar" class="north-star"></div>
+            <div id="dashboardMetrics" class="dashboard-metrics"></div>
+            <div id="reliabilityChart" class="reliability-chart"></div>
+            <div id="decisionVerdict" class="decision-verdict"></div>
+            <div class="result-actions">
+              <button id="exportScorecard" class="button secondary" type="button">Descargar scorecard</button>
+              <button id="printScorecard" class="button secondary" type="button">Imprimir / guardar PDF</button>
+            </div>
+          </section>
+        </section>
+
+        <div class="wizard-actions" id="builderActions">
+          <button id="previousBuilderStep" class="button ghost" type="button" hidden>Anterior</button>
+          <div class="action-spacer"></div>
+          <button id="nextBuilderStep" class="button primary" type="button">Continuar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer><p>Decide con resultados completos: valor, coste, calidad, fiabilidad y control.</p></footer>
+  <script src="scorecard.js?v=3"></script>
+</body>
+</html>
+
