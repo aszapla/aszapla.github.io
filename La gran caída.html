@@ -1,0 +1,331 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>La gran caída</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single 16:9 "screen" (4:5 on phones) playing eight timed scenes, transport bar underneath. Deliberately one dark look: a newsroom monitor at night. */
+:root{
+  --ink:#141b26;        /* stage background */
+  --ink-2:#1d2734;      /* panels, grid */
+  --paper:#e9edf2;      /* main text */
+  --muted:#8e9aab;      /* captions */
+  --amber:#f2a93b;      /* the audience line */
+  --drop:#e2614f;       /* the fall */
+  --rule:#2f3b4c;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:#0d121a;color:var(--paper)}
+body{font-family:var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.wrap{max-width:1100px;margin-inline:auto;display:flex;flex-direction:column;gap:14px}
+.stage{position:relative;width:100%;aspect-ratio:16/9;background:var(--ink);border-radius:6px;overflow:hidden;container-type:size;outline:1px solid var(--rule)}
+@media (max-width:640px){.stage{aspect-ratio:4/5}}
+.scene{position:absolute;inset:0;padding:6cqmin 7cqmin;display:flex;flex-direction:column;justify-content:center;gap:2.4cqmin;opacity:0;pointer-events:none}
+.scene.on{pointer-events:auto}
+.eyebrow{font-family:var(--f-mono);font-size:2.6cqmin;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.big{font-family:var(--f-display);font-weight:900;line-height:.88;letter-spacing:.005em;text-wrap:balance;margin:0}
+.t-xl{font-size:17cqmin}
+.t-l{font-size:11cqmin}
+.t-m{font-size:7.2cqmin}
+.lead{font-size:3.6cqmin;line-height:1.4;max-width:60ch;color:var(--paper);margin:0;text-wrap:pretty}
+.cap{font-size:2.9cqmin;line-height:1.45;color:var(--muted);max-width:62ch;margin:0}
+.num{font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular-nums}
+.amber{color:var(--amber)} .drop{color:var(--drop)}
+.row{display:flex;flex-wrap:wrap;gap:4cqmin 7cqmin;align-items:flex-end}
+.stat .k{font-family:var(--f-mono);font-size:2.4cqmin;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.stat .v{font-family:var(--f-display);font-weight:800;font-size:12cqmin;line-height:.9;font-variant-numeric:tabular-nums}
+.chartbox{position:absolute;inset:0}
+.chartbox svg{width:100%;height:100%;display:block}
+.chart-text{position:absolute;left:7cqmin;top:6cqmin;right:7cqmin;display:flex;flex-direction:column;gap:1.4cqmin}
+.bars{display:flex;flex-direction:column;gap:1.5cqmin;width:100%}
+.bar{display:grid;grid-template-columns:22cqmin 1fr 14cqmin;align-items:center;gap:2cqmin;font-size:2.9cqmin}
+.bar .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .track{position:relative;height:3.4cqmin}
+.bar .ghost{position:absolute;inset:0 auto 0 0;border:1px dashed var(--rule);border-radius:2px}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--amber);border-radius:2px}
+.bar .pct{font-family:var(--f-mono);text-align:right;color:var(--drop);font-variant-numeric:tabular-nums}
+.list{display:flex;flex-direction:column;gap:2.6cqmin;margin:0;padding:0;list-style:none}
+.list li{display:grid;grid-template-columns:5cqmin 1fr;gap:2cqmin;font-size:3.4cqmin;line-height:1.4}
+.list li span:first-child{font-family:var(--f-mono);color:var(--amber)}
+.src{font-family:var(--f-mono);font-size:2.3cqmin;color:var(--muted);line-height:1.6}
+.grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+.clock{position:absolute;right:3cqmin;bottom:2.6cqmin;font-family:var(--f-mono);font-size:2.1cqmin;color:var(--muted)}
+/* transport */
+.transport{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.btn{font:500 13px/1 var(--f-body);color:var(--paper);background:var(--ink-2);border:1px solid var(--rule);border-radius:4px;padding:8px 12px;cursor:pointer}
+.btn:hover{border-color:var(--muted)}
+.btn:focus-visible,.chap:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.chapters{display:flex;flex:1 1 320px;gap:4px;min-width:0}
+.chap{flex:1 1 0;min-width:0;height:28px;position:relative;background:var(--ink-2);border:1px solid var(--rule);border-radius:3px;cursor:pointer;padding:0;overflow:hidden}
+.chap i{position:absolute;inset:0 auto 0 0;width:0;background:rgba(242,169,59,.35)}
+.chap span{position:relative;font:400 11px/26px var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;padding:0 6px}
+.chap[aria-current="true"] span{color:var(--paper)}
+.foot{font-size:12px;color:var(--muted);line-height:1.5}
+@media (max-width:640px){.chap span{font-size:0}.chap span::before{content:attr(data-n);font-size:11px}}
+</style>
+
+<div class="wrap">
+  <div class="stage" id="stage" role="region" aria-label="Pieza animada: la caída de la audiencia de la prensa digital">
+    <!-- 1 -->
+    <section class="scene" data-s="0" style="opacity:1">
+      <div class="eyebrow">Prensa digital · España · GfK DAM</div>
+      <h1 class="big t-xl">La gran<br><span class="amber">caída</span></h1>
+      <p class="lead">Cómo las ocho grandes cabeceras generalistas perdieron casi 28 millones de usuarios únicos en quince meses.</p>
+      <svg id="introLine" viewBox="0 0 400 40" style="width:46cqmin;height:auto;overflow:visible" aria-hidden="true">
+        <path d="M0 30 L120 22 L200 8 L240 4 L300 14 L400 26" fill="none" stroke="var(--amber)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path>
+      </svg>
+    </section>
+    <!-- 2 -->
+    <section class="scene" data-s="1">
+      <div class="eyebrow">Mayo de 2025 · el techo</div>
+      <div class="big t-xl num amber" id="peakNum">141,1 M</div>
+      <p class="lead">usuarios únicos mensuales sumando El País, El Mundo, 20minutos, ABC, El Español, El Confidencial, La Vanguardia y OKdiario. Nunca habían llegado tan alto.</p>
+    </section>
+    <!-- 3 + 4: chart -->
+    <section class="scene" data-s="2" id="chartScene">
+      <div class="chartbox" id="chartbox"></div>
+      <div class="chart-text">
+        <div class="eyebrow" id="chEyebrow">2022 – 2025 · la subida</div>
+        <h2 class="big t-m" id="chTitle">Tres años de crecimiento</h2>
+        <p class="cap" id="chCap">Una parte la puso el propio medidor: GfK empezó a contar el tráfico AMP en noviembre de 2022 y amplió su panel en febrero de 2025.</p>
+      </div>
+    </section>
+    <!-- 5 -->
+    <section class="scene" data-s="4">
+      <div class="eyebrow">Del máximo de cada una a agosto de 2026</div>
+      <h2 class="big t-m">Ninguna se salva</h2>
+      <div class="bars" id="bars"></div>
+      <p class="cap">Línea discontinua: el máximo de la cabecera desde enero de 2025. Barra: agosto de 2026.</p>
+    </section>
+    <!-- 6 -->
+    <section class="scene" data-s="5">
+      <div class="eyebrow">Agosto 2026 frente a agosto 2025</div>
+      <div class="row">
+        <div class="stat"><div class="k">Hace un año</div><div class="v">135,4 M</div></div>
+        <div class="stat"><div class="k">Ahora</div><div class="v amber">113,2 M</div></div>
+        <div class="stat"><div class="k">Interanual</div><div class="v drop" id="yoyNum">−16,4 %</div></div>
+      </div>
+      <p class="lead">Quien mejor resiste es El Español, líder en 35 de los 45 meses con ranking completo, y OKdiario, que pierde un 15 % desde su máximo. Los que más caen son 20minutos y La Vanguardia, casi un tercio.</p>
+    </section>
+    <!-- 7 -->
+    <section class="scene" data-s="6">
+      <div class="eyebrow">Antes de sacar conclusiones</div>
+      <h2 class="big t-m">Lo que estos datos no dicen</h2>
+      <ul class="list">
+        <li><span>1</span><span>Son sumas sin deduplicar: quien lee tres periódicos cuenta tres veces.</span></li>
+        <li><span>2</span><span>Cada mes solo se publica el top-10 de generalistas; los huecos quedan fuera.</span></li>
+        <li><span>3</span><span>Esta serie no explica el porqué: no recoge de dónde llega el tráfico (buscadores, redes, asistentes de IA).</span></li>
+        <li><span>4</span><span>En 2027 la AIMC cambia de medidor a Comscore, y la serie volverá a romperse.</span></li>
+      </ul>
+    </section>
+    <!-- 8 -->
+    <section class="scene" data-s="7">
+      <h2 class="big t-l">De <span class="amber">141,1</span> a <span class="drop">113,2</span><br>millones</h2>
+      <p class="lead">En quince meses, la gran prensa digital ha perdido uno de cada cinco usuarios únicos en la medición oficial.</p>
+      <p class="src">Fuente: GfK DAM, usuarios únicos mensuales, recopilados de Red de Periodistas, CMS MAG, Dircomfidencial y El Español. Meses con las ocho cabeceras publicadas. Elaboración propia.</p>
+    </section>
+    <div class="grain"></div>
+    <div class="clock" id="clock">0:00</div>
+  </div>
+
+  <div class="transport">
+    <button class="btn" id="play" type="button" aria-label="Pausar">❚❚ Pausa</button>
+    <button class="btn" id="restart" type="button">↺ Desde el principio</button>
+    <div class="chapters" id="chapters"></div>
+  </div>
+  <p class="foot">Las ocho grandes: El País, El Mundo, 20minutos, ABC, El Español, El Confidencial, La Vanguardia y OKdiario. Barra espaciadora para pausar, flechas para cambiar de escena.</p>
+</div>
+
+<script>
+(() => {
+  // ---- data (GfK DAM, millones de usuarios únicos; meses con las 8 cabeceras publicadas) ----
+  const SERIE = [['2022-08',87.6],['2022-10',83.6],['2022-11',110.5],['2023-02',115.2],['2023-03',112.9],['2023-04',111.1],['2023-05',121.2],['2023-06',111.8],['2023-07',119.3],['2023-08',109.9],['2023-09',112.6],['2023-10',118.7],['2023-11',119.6],['2023-12',124.6],['2024-01',125.9],['2024-03',121.9],['2024-06',117.0],['2024-07',124.7],['2024-08',122.6],['2024-10',124.4],['2024-12',124.9],['2025-03',140.2],['2025-04',138.7],['2025-05',141.1],['2025-06',135.6],['2025-08',135.4],['2025-09',133.6],['2025-10',136.7],['2025-11',126.4],['2025-12',131.6],['2026-05',122.7],['2026-07',120.0],['2026-08',113.2]];
+  const PEAK_I = SERIE.findIndex((d) => d[0] === '2025-05');
+  const CAB = [ // [medio, máximo desde ene-2025, mes del máximo, ago-2026]
+    ['20minutos',18.932,'abr 25',12.930],['La Vanguardia',17.395,'mar 25',12.036],['El Mundo',20.081,'ene 26',14.973],['El Confidencial',17.720,'sep 25',13.351],
+    ['El País',19.361,'ene 26',14.889],['ABC',17.770,'may 25',13.691],['El Español',20.481,'mar 25',17.035],['OKdiario',16.870,'mar 25',14.308]];
+  const HITOS = [['2022-11','AMP'],['2025-02','Panel ampliado']];
+  const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const fmt1 = (v) => v.toFixed(1).replace('.', ',');
+  const pctS = (v) => (v < 0 ? '−' : '+') + Math.abs(v * 100).toFixed(1).replace('.', ',') + ' %';
+  const tIdx = (p) => { const [y, m] = p.split('-').map(Number); return y * 12 + m - 1; };
+
+  // ---- timeline ----
+  const SC = [ // start, duration (s), label
+    [0, 6, 'Título'], [6, 7, 'El techo'], [13, 10, 'La subida'], [23, 10, 'La caída'],
+    [33, 11, 'Cabeceras'], [44, 8, 'Un año'], [52, 9, 'Matices'], [61, 6, 'Cierre']];
+  const TOTAL = 67, FADE = 0.6;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scenes = [...document.querySelectorAll('.scene')];
+  const layerOf = (i) => (i === 3 ? 2 : i > 3 ? i - 1 : i); // scenes 2 & 3 share the chart layer
+  const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+  const clamp01 = (x) => Math.min(1, Math.max(0, x));
+  let T = 0, playing = !reduce, last = null;
+
+  // ---- chapters ----
+  const chapEl = document.getElementById('chapters');
+  const chaps = SC.map(([s, d, l], i) => {
+    const b = document.createElement('button'); b.className = 'chap'; b.type = 'button'; b.setAttribute('aria-label', `Escena ${i + 1}: ${l}`);
+    const fill = document.createElement('i'); const sp = document.createElement('span'); sp.textContent = `${i + 1} ${l}`; sp.dataset.n = String(i + 1);
+    b.append(fill, sp); b.addEventListener('click', () => seek(reduce ? s + d - 0.01 : s + 0.001)); chapEl.appendChild(b);
+    return { b, fill };
+  });
+  const playBtn = document.getElementById('play');
+  const setPlay = (v) => { playing = v; playBtn.textContent = v ? '❚❚ Pausa' : '▶ Reproducir'; playBtn.setAttribute('aria-label', v ? 'Pausar' : 'Reproducir'); };
+  playBtn.addEventListener('click', () => { if (!playing && T >= TOTAL) T = 0; setPlay(!playing); });
+  document.getElementById('restart').addEventListener('click', () => { seek(0); setPlay(true); });
+  const curScene = () => Math.max(0, SC.findIndex(([s, d]) => T >= s && T < s + d));
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('button') && e.key === ' ') return;
+    if (e.key === ' ') { e.preventDefault(); playBtn.click(); }
+    if (e.key === 'ArrowRight') { const i = Math.min(SC.length - 1, curScene() + 1); seek(reduce ? SC[i][0] + SC[i][1] - 0.01 : SC[i][0] + 0.001); }
+    if (e.key === 'ArrowLeft') { const i = Math.max(0, curScene() - 1); seek(reduce ? SC[i][0] + SC[i][1] - 0.01 : SC[i][0] + 0.001); }
+  });
+  function seek(t) { T = Math.min(TOTAL, Math.max(0, t)); draw(); }
+  setPlay(playing);
+
+  // ---- bars (scene 5) ----
+  const barsEl = document.getElementById('bars');
+  const maxV = Math.max(...CAB.map((c) => c[1]));
+  const barRows = CAB.map(([n, pk, pm, now]) => {
+    const r = document.createElement('div'); r.className = 'bar';
+    const name = document.createElement('span'); name.className = 'name'; name.textContent = n;
+    const tr = document.createElement('div'); tr.className = 'track';
+    const g = document.createElement('div'); g.className = 'ghost'; g.style.width = (pk / maxV * 100) + '%';
+    const f = document.createElement('div'); f.className = 'fill';
+    tr.append(g, f);
+    const p = document.createElement('span'); p.className = 'pct';
+    r.append(name, tr, p); barsEl.appendChild(r);
+    return { f, p, pk, now };
+  });
+
+  // ---- chart (scenes 3–4) ----
+  const box = document.getElementById('chartbox');
+  let C = null;
+  function buildChart() {
+    const W = box.clientWidth, H = box.clientHeight; if (!W || !H) return;
+    const narrow = W / H < 1.2;
+    const m = { l: W * 0.07, r: W * (narrow ? 0.17 : 0.12), t: H * (narrow ? 0.42 : 0.36), b: H * 0.12 };
+    const t0 = tIdx(SERIE[0][0]), t1 = tIdx(SERIE[SERIE.length - 1][0]);
+    const x = (p) => m.l + (tIdx(p) - t0) / (t1 - t0) * (W - m.l - m.r);
+    const y = (v) => m.t + (1 - (v - 70) / (150 - 70)) * (H - m.t - m.b);
+    const ns = 'http://www.w3.org/2000/svg';
+    const el = (tag, attrs, parent) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
+    box.replaceChildren();
+    const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); box.appendChild(svg);
+    const fs = Math.max(10, Math.min(W, H) * 0.026);
+    for (const v of [80, 100, 120, 140]) {
+      el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: 'var(--rule)', 'stroke-width': 1 });
+      el('text', { x: W - m.r + 8, y: y(v), dy: '0.35em', fill: 'var(--muted)', 'font-family': 'IBM Plex Mono, monospace', 'font-size': fs }).textContent = v + ' M';
+    }
+    for (let yr = 2023; yr <= 2026; yr++) el('text', { x: x(`${yr}-01`), y: H - m.b + fs * 1.8, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-family': 'IBM Plex Mono, monospace', 'font-size': fs }).textContent = String(yr);
+    const hit = HITOS.map(([p, lab]) => {
+      const g = el('g', { opacity: 0 });
+      el('line', { x1: x(p), x2: x(p), y1: m.t - fs * 0.4, y2: H - m.b, stroke: 'var(--muted)', 'stroke-dasharray': '4 4', 'stroke-width': 1 }, g);
+      el('text', { x: x(p) + 6, y: H - m.b - 8, fill: 'var(--muted)', 'font-family': 'IBM Plex Mono, monospace', 'font-size': fs }, g).textContent = lab;
+      return { g, p };
+    });
+    const area = el('path', { fill: 'var(--drop)', opacity: 0.16 });
+    const rise = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': Math.max(2.5, fs * 0.22), 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+    const fall = el('path', { fill: 'none', stroke: 'var(--drop)', 'stroke-width': Math.max(2.5, fs * 0.22), 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+    const head = el('circle', { r: fs * 0.42, fill: 'var(--amber)' });
+    const peakDot = el('circle', { r: fs * 0.5, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, opacity: 0 });
+    const label = el('text', { 'font-family': 'Big Shoulders Display, Arial Narrow, sans-serif', 'font-weight': 800, 'font-size': fs * 2.2, fill: 'var(--paper)' });
+    const sub = el('text', { 'font-family': 'IBM Plex Mono, monospace', 'font-size': fs, fill: 'var(--muted)' });
+    const gap = el('line', { stroke: 'var(--drop)', 'stroke-width': 1.5, 'stroke-dasharray': '2 3', opacity: 0 });
+    C = { x, y, m, W, H, fs, rise, fall, head, label, sub, hit, area, peakDot, gap };
+  }
+  const pathTo = (pts) => pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  function partial(fromI, toI, f) { // points of SERIE[fromI..toI] drawn up to fraction f along index
+    const pts = []; const span = toI - fromI; const pos = fromI + span * f; const k = Math.floor(pos);
+    for (let i = fromI; i <= Math.min(k, toI); i++) pts.push([C.x(SERIE[i][0]), C.y(SERIE[i][1])]);
+    if (k < toI) { const a = SERIE[k], b = SERIE[k + 1], u = pos - k; const xa = C.x(a[0]), xb = C.x(b[0]); pts.push([xa + (xb - xa) * u, C.y(a[1] + (b[1] - a[1]) * u)]); }
+    return pts;
+  }
+  const lblMonth = (p) => MES[Number(p.slice(5)) - 1] + ' ' + p.slice(0, 4);
+  function drawChart(t) { // t: seconds since chart start (0..20)
+    if (!C) buildChart(); if (!C) return;
+    const rising = t < 10;
+    const fr = rising ? ease(t / 8.5) : 1;
+    const ff = rising ? 0 : ease((t - 10) / 8);
+    const rp = partial(0, PEAK_I, fr);
+    C.rise.setAttribute('d', pathTo(rp));
+    const fp = ff > 0 ? partial(PEAK_I, SERIE.length - 1, ff) : [];
+    C.fall.setAttribute('d', fp.length ? pathTo(fp) : '');
+    const tip = fp.length ? fp[fp.length - 1] : rp[rp.length - 1];
+    C.head.setAttribute('cx', tip[0]); C.head.setAttribute('cy', tip[1]); C.head.setAttribute('fill', ff > 0 ? 'var(--drop)' : 'var(--amber)');
+    const val = (C.H - C.m.b - tip[1]) / (C.H - C.m.t - C.m.b) * 80 + 70;
+    const nearI = SERIE.reduce((bi, d, i) => (Math.abs(C.x(d[0]) - tip[0]) < Math.abs(C.x(SERIE[bi][0]) - tip[0]) ? i : bi), 0);
+    const right = tip[0] > C.W * 0.62;
+    C.label.setAttribute('x', tip[0] + (right ? -C.fs : C.fs)); C.label.setAttribute('y', tip[1] - C.fs * 0.9);
+    C.label.setAttribute('text-anchor', right ? 'end' : 'start'); C.label.textContent = fmt1(val) + ' M';
+    C.sub.setAttribute('x', tip[0] + (right ? -C.fs : C.fs)); C.sub.setAttribute('y', tip[1] - C.fs * 0.9 - C.fs * 2.4);
+    C.sub.setAttribute('text-anchor', right ? 'end' : 'start'); C.sub.textContent = lblMonth(SERIE[nearI][0]);
+    C.hit.forEach((h) => { const due = (tIdx(h.p) - tIdx(SERIE[0][0])) / (tIdx(SERIE[PEAK_I][0]) - tIdx(SERIE[0][0])); h.g.setAttribute('opacity', fr >= due ? 1 : 0); });
+    const pk = [C.x(SERIE[PEAK_I][0]), C.y(SERIE[PEAK_I][1])];
+    C.peakDot.setAttribute('cx', pk[0]); C.peakDot.setAttribute('cy', pk[1]); C.peakDot.setAttribute('opacity', fr >= 1 ? 1 : 0);
+    if (fp.length > 1) {
+      const a = [...fp, [tip[0], pk[1]], [pk[0], pk[1]]];
+      C.area.setAttribute('d', pathTo(a) + 'Z');
+      C.gap.setAttribute('x1', tip[0]); C.gap.setAttribute('x2', tip[0]); C.gap.setAttribute('y1', pk[1]); C.gap.setAttribute('y2', tip[1]); C.gap.setAttribute('opacity', 1);
+    } else { C.area.setAttribute('d', ''); C.gap.setAttribute('opacity', 0); }
+    // texts
+    const eb = document.getElementById('chEyebrow'), ti = document.getElementById('chTitle'), cp = document.getElementById('chCap');
+    if (rising) {
+      eb.textContent = '2022 – 2025 · la subida'; ti.textContent = 'Tres años de crecimiento';
+      cp.textContent = 'Una parte la puso el propio medidor: GfK empezó a contar el tráfico AMP en noviembre de 2022 y amplió su panel en febrero de 2025.';
+    } else {
+      const lost = SERIE[PEAK_I][1] - val;
+      eb.textContent = 'Mayo 2025 – agosto 2026 · la caída';
+      ti.innerHTML = ''; const s1 = document.createElement('span'); s1.className = 'drop'; s1.textContent = '−' + fmt1(Math.max(0, lost)) + ' M';
+      ti.append(s1, document.createTextNode(' en quince meses'));
+      cp.textContent = 'Del pico de 141,1 M a 113,2 M en agosto de 2026: un ' + fmt1((1 - 113.2 / 141.1) * 100) + ' % menos.';
+    }
+  }
+
+  // ---- per-frame ----
+  const peakNum = document.getElementById('peakNum'), yoy = document.getElementById('yoyNum'), intro = document.querySelector('#introLine path');
+  function draw() {
+    const si = curScene() === -1 ? SC.length - 1 : (T >= TOTAL ? SC.length - 1 : curScene());
+    const layers = new Map();
+    SC.forEach(([s, d], i) => {
+      const L = layerOf(i);
+      let o = 0;
+      if (T >= s - FADE && T < s + d + FADE) o = Math.min(clamp01((T - s + FADE) / FADE), clamp01((s + d + FADE - T) / FADE));
+      if (i === 0 && T < FADE) o = 1;
+      if (i === SC.length - 1 && T >= s) o = 1;
+      if (reduce) o = i === si ? 1 : 0;
+      // the shared chart layer stays solid across its two scenes
+      if (L === 2 && T >= SC[2][0] && T < SC[3][0] + SC[3][1]) o = reduce ? 1 : Math.max(o, 1);
+      layers.set(L, Math.max(layers.get(L) || 0, o));
+    });
+    scenes.forEach((sc, L) => { const o = layers.get(L) || 0; sc.style.opacity = o.toFixed(3); sc.classList.toggle('on', o > 0.5); sc.setAttribute('aria-hidden', o > 0.5 ? 'false' : 'true'); });
+    const lt = (i) => T - SC[i][0];
+    intro.setAttribute('stroke-dashoffset', String(1 - ease(Math.max(T, reduce ? 6 : 0) / 3)));
+    peakNum.textContent = fmt1(141.1 * ease(lt(1) / 3)) + ' M';
+    if (T >= SC[2][0] - FADE && T < SC[3][0] + SC[3][1] + FADE) drawChart(Math.max(0, lt(2)));
+    barRows.forEach((b, i) => {
+      const p = ease((lt(4) - 0.8 - i * 0.35) / 2.2);
+      const v = b.pk + (b.now - b.pk) * p;
+      b.f.style.width = (v / maxV * 100) + '%';
+      b.p.textContent = p > 0.02 ? pctS(v / b.pk - 1) : '';
+    });
+    yoy.textContent = pctS(-0.164 * ease((lt(5) - 0.6) / 2));
+    const sec = Math.floor(T); document.getElementById('clock').textContent = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')} / 1:07`;
+    chaps.forEach((c, i) => { const [s, d] = SC[i]; c.fill.style.width = (clamp01((T - s) / d) * 100) + '%'; c.b.setAttribute('aria-current', String(i === si)); });
+  }
+  function frame(ts) {
+    if (last != null && playing) { T += (ts - last) / 1000; if (T >= TOTAL) { T = TOTAL; setPlay(false); } }
+    last = ts; draw(); requestAnimationFrame(frame);
+  }
+  new ResizeObserver(() => { C = null; draw(); }).observe(box);
+  if (reduce) T = SC[0][1] - 0.01;
+  draw(); requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
